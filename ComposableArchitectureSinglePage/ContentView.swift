@@ -72,7 +72,7 @@ enum AppAction {
   case favoritePrimes(FavoritePrimesAction)
 }
 
-func counterReducer( state: inout AppState, action: AppAction) {
+func appReducer( state: inout AppState, action: AppAction) {
   switch action {
   case .counter(.decrTapped):
     state.count -= 1
@@ -242,7 +242,7 @@ struct FavoritePrimesView: View {
 #if DEBUG
 struct SettingsForm_Previews : PreviewProvider {
     static var previews: some View {
-      ContentView(store: Store(initialValue: AppState(), reducer: counterReducer))
+      ContentView(store: Store(initialValue: AppState(), reducer: appReducer))
     }
 }
 #endif
