@@ -11,14 +11,14 @@ import SwiftUI
 
 struct ContentView: View {
   @ObservedObject var state: AppState
-
+  
   var body: some View {
     NavigationView {
       List {
         NavigationLink(destination: CounterView(state: self.state)) {
           Text("Counter demo")
         }
-        NavigationLink(destination: FavoritePrimesView(state: self.$state.favoritePrimesState)) {
+        NavigationLink(destination: FavoritePrimesView(state: self.state)) {
           Text("Favorite primes")
         }
       }
@@ -26,8 +26,6 @@ struct ContentView: View {
     }
   }
 }
-
-//BindableObject
 
 import Combine
 
@@ -53,6 +51,15 @@ class AppState: ObservableObject {
     let bio: String
   }
 }
+
+final class Store<Value>: ObservableObject {
+  @Published var value: Value
+  
+  init(initialValue: Value) {
+    self.value = initialValue
+  }
+}
+
 
 struct PrimeAlert: Identifiable {
   let prime: Int
@@ -159,7 +166,7 @@ extension AppState {
 }
 
 struct FavoritePrimesView: View {
-  @Binding var state: FavoritePrimesState
+  @ObservedObject var state: AppState
 
   var body: some View {
     List {
