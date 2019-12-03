@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var store: Store<AppState, CounterAction>
+  @ObservedObject var store: Store<AppState, AppAction>
   
   var body: some View {
     NavigationView {
@@ -57,12 +57,43 @@ enum CounterAction {
   case incrTapped
 }
 
-func counterReducer( state: inout AppState, action: CounterAction) {
+enum PrimeModalAction {
+  case saveFavoritePrimeTapped
+  case removeFavoritePrimeTapped
+}
+
+enum FavoritePrimesAction {
+  case deleteFavoritePrimes(IndexSet)
+}
+
+enum AppAction {
+  case counter(CounterAction)
+  case primeModal(PrimeModalAction)
+  case favoritePrimes(FavoritePrimesAction)
+}
+
+func counterReducer( state: inout AppState, action: AppAction) {
   switch action {
-  case .decrTapped:
+  case .counter(.decrTapped):
     state.count -= 1
-  case .incrTapped:
+    
+  case .counter(.incrTapped):
     state.count += 1
+    
+  case .primeModal(.saveFavoritePrimeTapped):
+    state.favoritePrimes.append(state.count)
+    state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+    
+  case .primeModal(.removeFavoritePrimeTapped):
+    state.favoritePrimes.removeAll(where: { $0 == state.count })
+    state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+   
+  case let .favoritePrimes(.deleteFavoritePrimes(indexSet)):
+    for index in indexSet {
+      let prime = state.favoritePrimes[index]
+      state.favoritePrimes.remove(at: index)
+      state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(prime)))
+    }
   }
 }
 
@@ -88,7 +119,7 @@ struct PrimeAlert: Identifiable {
 }
 
 struct CounterView: View {
-  @ObservedObject var store: Store<AppState, CounterAction>
+  @ObservedObject var store: Store<AppState, AppAction>
   @State var isPrimeModalShown: Bool = false
   @State var alertNthPrime: PrimeAlert?
   @State var isNthPrimeButtonDisabled = false
@@ -96,11 +127,11 @@ struct CounterView: View {
   var body: some View {
     VStack {
       HStack {
-        Button(action: { self.store.send(.decrTapped) }) {
+        Button(action: { self.store.send(.counter(.decrTapped)) }) {
           Text("-")
         }
         Text("\(self.store.value.count)")
-        Button(action: { self.store.send(.incrTapped) }) {
+        Button(action: { self.store.send(.counter(.incrTapped)) }) {
           Text("+")
         }
       }
@@ -135,7 +166,7 @@ struct CounterView: View {
 }
 
 struct IsPrimeModalView: View {
-  @ObservedObject var store: Store<AppState, CounterAction>
+  @ObservedObject var store: Store<AppState, AppAction>
 
   var body: some View {
     VStack {
@@ -143,16 +174,13 @@ struct IsPrimeModalView: View {
         Text("\(self.store.value.count) is prime 🎉")
         if self.store.value.favoritePrimes.contains(self.store.value.count) {
           Button(action: {
-            self.store.value.favoritePrimes.removeAll(where: { $0 == self.store.value.count })
-            self.store.value.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(self.store.value.count)))
+            self.store.send(.primeModal(.removeFavoritePrimeTapped))
           }) {
             Text("Remove from favorite primes")
           }
         } else {
           Button(action: {
-            self.store.value.favoritePrimes.append(self.store.value.count)
-            self.store.value.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(self.store.value.count)))
-
+            self.store.send(.primeModal(.saveFavoritePrimeTapped))
           }) {
             Text("Save to favorite primes")
           }
@@ -186,7 +214,7 @@ extension AppState {
 }
 
 struct FavoritePrimesView: View {
-  @ObservedObject var store: Store<AppState, CounterAction>
+  @ObservedObject var store: Store<AppState, AppAction>
 
   var body: some View {
     List {
@@ -194,11 +222,7 @@ struct FavoritePrimesView: View {
         Text("\(prime)")
       }
       .onDelete { indexSet in
-        for index in indexSet {
-          let prime = self.store.value.favoritePrimes[index]
-          self.store.value.favoritePrimes.remove(at: index)
-          self.store.value.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(prime)))
-        }
+        self.store.send(.favoritePrimes(.deleteFavoritePrimes(indexSet)))
       }
     }
       .navigationBarTitle(Text("Favorite Primes"))
