@@ -114,15 +114,17 @@ func favoritePrimesReducer(state: inout AppState, action: AppAction) {
   }
 }
 
-let appReducer = combine(combine(counterReducer, primeModalReducer), favoritePrimesReducer)
+let appReducer = combine(counterReducer,
+                         primeModalReducer,
+                         favoritePrimesReducer)
 
 func combine<Value, Action>(
-  _ first: @escaping (inout Value, Action) -> Void,
-  _ second: @escaping (inout Value, Action) -> Void)
+  _ reducers: (inout Value, Action) -> Void...)
   -> (inout Value, Action) -> Void {
     return { value, action in
-      first(&value, action)
-      second(&value, action)
+      for reducer in reducers {
+        reducer(&value, action)
+      }
     }
 }
 
