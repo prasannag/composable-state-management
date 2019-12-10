@@ -72,13 +72,13 @@ enum AppAction {
   case favoritePrimes(FavoritePrimesAction)
 }
 
-func counterReducer(state: inout AppState, action: AppAction) {
+func counterReducer(state: inout Int, action: AppAction) {
   switch action {
   case .counter(.decrTapped):
-    state.count -= 1
+    state -= 1
     
   case .counter(.incrTapped):
-    state.count += 1
+    state += 1
     
   default:
     break
