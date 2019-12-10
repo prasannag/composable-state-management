@@ -236,25 +236,6 @@ struct IsPrimeModalView: View {
   }
 }
 
-struct FavoritePrimesState {
-  var favoritePrimes: [Int]
-  var activityFeed: [AppState.Activity]
-}
-extension AppState {
-  var favoritePrimesState: FavoritePrimesState {
-    get {
-      FavoritePrimesState(
-        favoritePrimes: self.favoritePrimes,
-        activityFeed: self.activityFeed
-      )
-    }
-    set {
-      self.favoritePrimes = newValue.favoritePrimes
-      self.activityFeed = newValue.activityFeed
-    }
-  }
-}
-
 struct FavoritePrimesView: View {
   @ObservedObject var store: Store<AppState, AppAction>
 
