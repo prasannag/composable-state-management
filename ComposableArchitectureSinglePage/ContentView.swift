@@ -42,6 +42,28 @@ struct AppState {
     enum ActivityType {
       case addedFavoritePrime(Int)
       case removedFavoritePrime(Int)
+
+      var addedFavoritePrime: Int? {
+        get {
+          guard case let .addedFavoritePrime(value) = self else { return nil }
+          return value
+        }
+        set {
+          guard case .addedFavoritePrime = self, let newValue = newValue else { return }
+          self = .addedFavoritePrime(newValue)
+        }
+      }
+
+      var removedFavoritePrime: Int? {
+        get {
+          guard case let .removedFavoritePrime(value) = self else { return nil }
+          return value
+        }
+        set {
+          guard case .removedFavoritePrime = self, let newValue = newValue else { return }
+          self = .removedFavoritePrime(newValue)
+        }
+      }
     }
   }
 
@@ -64,12 +86,56 @@ enum PrimeModalAction {
 
 enum FavoritePrimesAction {
   case deleteFavoritePrimes(IndexSet)
+
+  var deleteFavoritePrimes: IndexSet? {
+    get {
+      guard case let .deleteFavoritePrimes(value) = self else { return nil }
+      return value
+    }
+    set {
+      guard case .deleteFavoritePrimes = self, let newValue = newValue else { return }
+      self = .deleteFavoritePrimes(newValue)
+    }
+  }
 }
 
 enum AppAction {
   case counter(CounterAction)
   case primeModal(PrimeModalAction)
   case favoritePrimes(FavoritePrimesAction)
+
+  var counter: CounterAction? {
+    get {
+      guard case let .counter(value) = self else { return nil }
+      return value
+    }
+    set {
+      guard case .counter = self, let newValue = newValue else { return }
+      self = .counter(newValue)
+    }
+  }
+
+  var primeModal: PrimeModalAction? {
+    get {
+      guard case let .primeModal(value) = self else { return nil }
+      return value
+    }
+    set {
+      guard case .primeModal = self, let newValue = newValue else { return }
+      self = .primeModal(newValue)
+    }
+  }
+
+  var favoritePrimes: FavoritePrimesAction? {
+    get {
+      guard case let .favoritePrimes(value) = self else { return nil }
+      return value
+    }
+    set {
+      guard case .favoritePrimes = self, let newValue = newValue else { return }
+      self = .favoritePrimes(newValue)
+    }
+  }
 }
 
 func counterReducer(state: inout Int, action: AppAction) {
