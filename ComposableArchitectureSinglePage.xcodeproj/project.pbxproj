@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B94016C23B705A8005DE8CD /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 0B94016B23B705A8005DE8CD /* Overture */; };
 		0BE59A2B238CB0BB003DD356 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2A238CB0BB003DD356 /* AppDelegate.swift */; };
 		0BE59A2D238CB0BB003DD356 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2C238CB0BB003DD356 /* SceneDelegate.swift */; };
 		0BE59A2F238CB0BB003DD356 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2E238CB0BB003DD356 /* ContentView.swift */; };
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B94016C23B705A8005DE8CD /* Overture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +157,9 @@
 			dependencies = (
 			);
 			name = ComposableArchitectureSinglePage;
+			packageProductDependencies = (
+				0B94016B23B705A8005DE8CD /* Overture */,
+			);
 			productName = ComposableArchitectureSinglePage;
 			productReference = 0BE59A27238CB0BB003DD356 /* ComposableArchitectureSinglePage.app */;
 			productType = "com.apple.product-type.application";
@@ -227,6 +232,9 @@
 				Base,
 			);
 			mainGroup = 0BE59A1E238CB0BB003DD356;
+			packageReferences = (
+				0B94016A23B705A8005DE8CD /* XCRemoteSwiftPackageReference "swift-overture" */,
+			);
 			productRefGroup = 0BE59A28238CB0BB003DD356 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -598,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0B94016A23B705A8005DE8CD /* XCRemoteSwiftPackageReference "swift-overture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-overture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B94016B23B705A8005DE8CD /* Overture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B94016A23B705A8005DE8CD /* XCRemoteSwiftPackageReference "swift-overture" */;
+			productName = Overture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0BE59A1F238CB0BB003DD356 /* Project object */;
 }
