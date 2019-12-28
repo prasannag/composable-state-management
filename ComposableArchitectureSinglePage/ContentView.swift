@@ -7,56 +7,11 @@
 //
 
 
-import SwiftUI
 import Combine
-
-final class Store<Value, Action>: ObservableObject {
-  let reducer: (inout Value, Action) -> Void
-  @Published private(set) var value: Value
-  
-  init(initialValue: Value, reducer: @escaping (inout Value, Action) -> Void) {
-    self.reducer = reducer
-    self.value = initialValue
-  }
-  
-  func send(_ action: Action) {
-    self.reducer(&self.value, action)
-  }
-}
-
-func combine<Value, Action>(
-  _ reducers: (inout Value, Action) -> Void...)
-  -> (inout Value, Action) -> Void {
-    return { value, action in
-      for reducer in reducers {
-        reducer(&value, action)
-      }
-    }
-}
-
-func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
-  _ reducer: @escaping (inout LocalValue, LocalAction) -> Void,
-  value: WritableKeyPath<GlobalValue, LocalValue>,
-  action: WritableKeyPath<GlobalAction, LocalAction?>)
-  -> (inout GlobalValue, GlobalAction) -> Void {
-
-  return { globalValue, globalAction in
-    guard let localAction = globalAction[keyPath: action] else { return }
-    reducer(&globalValue[keyPath: value], localAction)
-  }
-}
-
-func logging<Value, Action> (
-  _ reducer: @escaping (inout Value, Action) -> Void
-) -> (inout Value, Action) -> Void {
-  return { value, action in
-    reducer(&value, action)
-    print("Action: \(action)")
-    print("Value: ")
-    dump(value)
-    print("---")
-  }
-}
+import ComposableArchitecture
+import Counter
+import FavoritePrimes
+import SwiftUI
 
 struct AppState {
   var count = 0
@@ -103,29 +58,9 @@ struct AppState {
   }
 }
 
-enum CounterAction {
-  case decrTapped
-  case incrTapped
-}
-
 enum PrimeModalAction {
   case saveFavoritePrimeTapped
   case removeFavoritePrimeTapped
-}
-
-enum FavoritePrimesAction {
-  case deleteFavoritePrimes(IndexSet)
-
-  var deleteFavoritePrimes: IndexSet? {
-    get {
-      guard case let .deleteFavoritePrimes(value) = self else { return nil }
-      return value
-    }
-    set {
-      guard case .deleteFavoritePrimes = self, let newValue = newValue else { return }
-      self = .deleteFavoritePrimes(newValue)
-    }
-  }
 }
 
 enum AppAction {
@@ -167,16 +102,6 @@ enum AppAction {
   }
 }
 
-func counterReducer(state: inout Int, action: CounterAction) {
-  switch action {
-  case .decrTapped:
-    state -= 1
-    
-  case .incrTapped:
-    state += 1
-  }
-}
-
 func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
   switch action {
     case .saveFavoritePrimeTapped:
@@ -184,15 +109,6 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
       
     case .removeFavoritePrimeTapped:
       state.favoritePrimes.removeAll(where: { $0 == state.count })
-  }
-}
-
-func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) {
-  switch action {
-  case let .deleteFavoritePrimes(indexSet):
-    for index in indexSet {
-      state.remove(at: index)
-    }
   }
 }
 
