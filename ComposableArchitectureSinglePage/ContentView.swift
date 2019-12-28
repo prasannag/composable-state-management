@@ -8,26 +8,55 @@
 
 
 import SwiftUI
+import Combine
 
-struct ContentView: View {
-  @ObservedObject var store: Store<AppState, AppAction>
+final class Store<Value, Action>: ObservableObject {
+  let reducer: (inout Value, Action) -> Void
+  @Published private(set) var value: Value
   
-  var body: some View {
-    NavigationView {
-      List {
-        NavigationLink(destination: CounterView(store: self.store)) {
-          Text("Counter demo")
-        }
-        NavigationLink(destination: FavoritePrimesView(store: self.store)) {
-          Text("Favorite primes")
-        }
-      }
-      .navigationBarTitle("State management")
-    }
+  init(initialValue: Value, reducer: @escaping (inout Value, Action) -> Void) {
+    self.reducer = reducer
+    self.value = initialValue
+  }
+  
+  func send(_ action: Action) {
+    self.reducer(&self.value, action)
   }
 }
 
-import Combine
+func combine<Value, Action>(
+  _ reducers: (inout Value, Action) -> Void...)
+  -> (inout Value, Action) -> Void {
+    return { value, action in
+      for reducer in reducers {
+        reducer(&value, action)
+      }
+    }
+}
+
+func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
+  _ reducer: @escaping (inout LocalValue, LocalAction) -> Void,
+  value: WritableKeyPath<GlobalValue, LocalValue>,
+  action: WritableKeyPath<GlobalAction, LocalAction?>)
+  -> (inout GlobalValue, GlobalAction) -> Void {
+
+  return { globalValue, globalAction in
+    guard let localAction = globalAction[keyPath: action] else { return }
+    reducer(&globalValue[keyPath: value], localAction)
+  }
+}
+
+func logging<Value, Action> (
+  _ reducer: @escaping (inout Value, Action) -> Void
+) -> (inout Value, Action) -> Void {
+  return { value, action in
+    reducer(&value, action)
+    print("Action: \(action)")
+    print("Value: ")
+    dump(value)
+    print("---")
+  }
+}
 
 struct AppState {
   var count = 0
@@ -160,7 +189,6 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
 
 func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) {
   switch action {
-    
   case let .deleteFavoritePrimes(indexSet):
     for index in indexSet {
       state.remove(at: index)
@@ -168,53 +196,11 @@ func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) {
   }
 }
 
-final class Store<Value, Action>: ObservableObject {
-  let reducer: (inout Value, Action) -> Void
-  @Published private(set) var value: Value
-  
-  init(initialValue: Value, reducer: @escaping (inout Value, Action) -> Void) {
-    self.reducer = reducer
-    self.value = initialValue
-  }
-  
-  func send(_ action: Action) {
-    self.reducer(&self.value, action)
-  }
-}
-
-func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
-  _ reducer: @escaping (inout LocalValue, LocalAction) -> Void,
-  value: WritableKeyPath<GlobalValue, LocalValue>,
-  action: WritableKeyPath<GlobalAction, LocalAction?>)
-  -> (inout GlobalValue, GlobalAction) -> Void {
-
-  return { globalValue, globalAction in
-    guard let localAction = globalAction[keyPath: action] else { return }
-    reducer(&globalValue[keyPath: value], localAction)
-  }
-}
-
-func combine<Value, Action>(
-  _ reducers: (inout Value, Action) -> Void...)
-  -> (inout Value, Action) -> Void {
-    return { value, action in
-      for reducer in reducers {
-        reducer(&value, action)
-      }
-    }
-}
-
-func logging<Value, Action> (
-  _ reducer: @escaping (inout Value, Action) -> Void
-) -> (inout Value, Action) -> Void {
-  return { value, action in
-    reducer(&value, action)
-    print("Action: \(action)")
-    print("Value: ")
-    dump(value)
-    print("---")
-  }
-}
+let appReducer: (inout AppState, AppAction) -> Void = combine(
+  pullback(counterReducer, value: \.count, action: \.counter),
+  pullback(primeModalReducer, value: \.self, action: \.primeModal),
+  pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
+)
 
 func activityFeed(
   _ reducer: @escaping (inout AppState, AppAction) -> Void
@@ -244,16 +230,28 @@ func activityFeed(
   }
 }
 
-let appReducer: (inout AppState, AppAction) -> Void = combine(
-  pullback(counterReducer, value: \.count, action: \.counter),
-  pullback(primeModalReducer, value: \.self, action: \.primeModal),
-  pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
-)
-
 struct PrimeAlert: Identifiable {
   let prime: Int
 
   var id: Int { self.prime }
+}
+
+struct ContentView: View {
+  @ObservedObject var store: Store<AppState, AppAction>
+  
+  var body: some View {
+    NavigationView {
+      List {
+        NavigationLink(destination: CounterView(store: self.store)) {
+          Text("Counter demo")
+        }
+        NavigationLink(destination: FavoritePrimesView(store: self.store)) {
+          Text("Favorite primes")
+        }
+      }
+      .navigationBarTitle("State management")
+    }
+  }
 }
 
 struct CounterView: View {
