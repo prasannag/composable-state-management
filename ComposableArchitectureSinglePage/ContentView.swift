@@ -158,30 +158,12 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
   }
 }
 
-struct FavoritePrimesState {
-  var favoritePrimes: [Int]
-  var activityFeed: [AppState.Activity]
-}
-
-extension AppState {
-  var favoritePrimesState: FavoritePrimesState {
-    get {
-      FavoritePrimesState(favoritePrimes: self.favoritePrimes,
-                          activityFeed: self.activityFeed)
-    }
-    set {
-      self.favoritePrimes = newValue.favoritePrimes
-      self.activityFeed = newValue.activityFeed
-    }
-  }
-}
-
-func favoritePrimesReducer(state: inout FavoritePrimesState, action: FavoritePrimesAction) {
+func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) {
   switch action {
     
   case let .deleteFavoritePrimes(indexSet):
     for index in indexSet {
-      state.favoritePrimes.remove(at: index)
+      state.remove(at: index)
     }
   }
 }
@@ -229,7 +211,7 @@ func activityFeed(
 let appReducer: (inout AppState, AppAction) -> Void = combine(
   pullback(counterReducer, value: \.count, action: \.counter),
   pullback(primeModalReducer, value: \.self, action: \.primeModal),
-  pullback(favoritePrimesReducer, value: \.favoritePrimesState, action: \.favoritePrimes)
+  pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )
 
 func combine<Value, Action>(
