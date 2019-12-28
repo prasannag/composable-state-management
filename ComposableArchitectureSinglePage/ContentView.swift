@@ -159,7 +159,9 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       List {
-        NavigationLink(destination: CounterView(store: self.store)) {
+        NavigationLink(destination: CounterView(
+          store: self.store.view { ($0.count, $0.favoritePrimes) }
+        )) {
           Text("Counter demo")
         }
         NavigationLink(destination: FavoritePrimesView(
@@ -174,7 +176,7 @@ struct ContentView: View {
 }
 
 struct CounterView: View {
-  @ObservedObject var store: Store<AppState, AppAction>
+  @ObservedObject var store: Store<CounterViewState, AppAction>
   @State var isPrimeModalShown: Bool = false
   @State var alertNthPrime: PrimeAlert?
   @State var isNthPrimeButtonDisabled = false
