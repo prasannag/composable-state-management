@@ -365,7 +365,12 @@ struct SettingsForm_Previews : PreviewProvider {
       ContentView(
         store: Store(
           initialValue: AppState(),
-          reducer: logging(activityFeed(appReducer))
+          reducer: with(appReducer,
+                        compose(
+                          logging,
+                          activityFeed
+            )
+          )
         )
       )
     }

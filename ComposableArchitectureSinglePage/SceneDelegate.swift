@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Overture
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -23,7 +24,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let contentView = ContentView(
       store: Store(
         initialValue: AppState(),
-        reducer: logging(activityFeed(appReducer))
+        reducer: with(appReducer,
+                      compose(
+                        logging,
+                        activityFeed
+                      )
+                    )
       )
     )
 
