@@ -152,11 +152,9 @@ func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
   switch action {
     case .saveFavoritePrimeTapped:
       state.favoritePrimes.append(state.count)
-      state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
       
     case .removeFavoritePrimeTapped:
       state.favoritePrimes.removeAll(where: { $0 == state.count })
-      state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
   }
 }
 
@@ -183,9 +181,7 @@ func favoritePrimesReducer(state: inout FavoritePrimesState, action: FavoritePri
     
   case let .deleteFavoritePrimes(indexSet):
     for index in indexSet {
-      let prime = state.favoritePrimes[index]
       state.favoritePrimes.remove(at: index)
-      state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(prime)))
     }
   }
 }
@@ -199,6 +195,34 @@ func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
   return { globalValue, globalAction in
     guard let localAction = globalAction[keyPath: action] else { return }
     reducer(&globalValue[keyPath: value], localAction)
+  }
+}
+
+func activityFeed(
+  _ reducer: @escaping (inout AppState, AppAction) -> Void
+) -> (inout AppState, AppAction) -> Void {
+  return { state, action in
+    // do some computations with state and action
+    switch action {
+    case .counter:
+      break
+
+    case .primeModal(.saveFavoritePrimeTapped):
+      state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
+      
+    case .primeModal(.removeFavoritePrimeTapped):
+      state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
+      
+    case let .favoritePrimes(.deleteFavoritePrimes(indexSet)):
+      for index in indexSet {
+        state.activityFeed.append(
+          .init(
+            timestamp: Date(),
+            type: .removedFavoritePrime(state.favoritePrimes[index])))
+      }
+    }
+    reducer(&state, action)
+    // inspect what happened to state
   }
 }
 
@@ -344,7 +368,12 @@ struct FavoritePrimesView: View {
 #if DEBUG
 struct SettingsForm_Previews : PreviewProvider {
     static var previews: some View {
-      ContentView(store: Store(initialValue: AppState(), reducer: appReducer))
+      ContentView(
+        store: Store(
+          initialValue: AppState(),
+          reducer: activityFeed(appReducer)
+        )
+      )
     }
 }
 #endif
