@@ -11,6 +11,7 @@ import Combine
 import ComposableArchitecture
 import Counter
 import FavoritePrimes
+import PrimeModal
 import SwiftUI
 
 struct AppState {
@@ -58,11 +59,6 @@ struct AppState {
   }
 }
 
-enum PrimeModalAction {
-  case saveFavoritePrimeTapped
-  case removeFavoritePrimeTapped
-}
-
 enum AppAction {
   case counter(CounterAction)
   case primeModal(PrimeModalAction)
@@ -102,19 +98,24 @@ enum AppAction {
   }
 }
 
-func primeModalReducer(state: inout AppState, action: PrimeModalAction) {
-  switch action {
-    case .saveFavoritePrimeTapped:
-      state.favoritePrimes.append(state.count)
-      
-    case .removeFavoritePrimeTapped:
-      state.favoritePrimes.removeAll(where: { $0 == state.count })
+extension AppState {
+  var primeModal: PrimeModalState {
+    get {
+      PrimeModalState(
+        count: self.count,
+        favoritePrimes: self.favoritePrimes
+      )
+    }
+    set {
+      self.count = newValue.count
+      self.favoritePrimes = newValue.favoritePrimes
+    }
   }
 }
 
 let appReducer: (inout AppState, AppAction) -> Void = combine(
   pullback(counterReducer, value: \.count, action: \.counter),
-  pullback(primeModalReducer, value: \.self, action: \.primeModal),
+  pullback(primeModalReducer, value: \.primeModal, action: \.primeModal),
   pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )
 

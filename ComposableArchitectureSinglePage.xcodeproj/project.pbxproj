@@ -31,6 +31,7 @@
 		0B9401F723B74235005DE8CD /* ComposableArchitecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9401F623B74235005DE8CD /* ComposableArchitecture.swift */; };
 		0B9401F923B744F8005DE8CD /* FavoritePrimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9401F823B744F8005DE8CD /* FavoritePrimes.swift */; };
 		0B9401FB23B7463A005DE8CD /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9401FA23B7463A005DE8CD /* Counter.swift */; };
+		0B9401FD23B74762005DE8CD /* PrimeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9401FC23B74762005DE8CD /* PrimeModal.swift */; };
 		0BE59A2B238CB0BB003DD356 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2A238CB0BB003DD356 /* AppDelegate.swift */; };
 		0BE59A2D238CB0BB003DD356 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2C238CB0BB003DD356 /* SceneDelegate.swift */; };
 		0BE59A2F238CB0BB003DD356 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59A2E238CB0BB003DD356 /* ContentView.swift */; };
@@ -188,6 +189,7 @@
 		0B9401F623B74235005DE8CD /* ComposableArchitecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposableArchitecture.swift; sourceTree = "<group>"; };
 		0B9401F823B744F8005DE8CD /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
 		0B9401FA23B7463A005DE8CD /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		0B9401FC23B74762005DE8CD /* PrimeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeModal.swift; sourceTree = "<group>"; };
 		0BE59A27238CB0BB003DD356 /* ComposableArchitectureSinglePage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposableArchitectureSinglePage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE59A2A238CB0BB003DD356 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BE59A2C238CB0BB003DD356 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			children = (
 				0B94019723B741B5005DE8CD /* PrimeModal.h */,
 				0B94019823B741B5005DE8CD /* Info.plist */,
+				0B9401FC23B74762005DE8CD /* PrimeModal.swift */,
 			);
 			path = PrimeModal;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 					};
 					0B94019423B741B5005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 					0B94019C23B741B5005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -883,6 +887,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9401FD23B74762005DE8CD /* PrimeModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,6 +1145,7 @@
 		0B9401AD23B741B5005DE8CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1157,6 +1163,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = prasanna.PrimeModal;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1167,6 +1174,7 @@
 		0B9401AE23B741B5005DE8CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
