@@ -224,6 +224,18 @@ func combine<Value, Action>(
     }
 }
 
+func logging<Value, Action> (
+  _ reducer: @escaping (inout Value, Action) -> Void
+) -> (inout Value, Action) -> Void {
+  return { value, action in
+    reducer(&value, action)
+    print("Action: \(action)")
+    print("Value: ")
+    dump(value)
+    print("---")
+  }
+}
+  
 final class Store<Value, Action>: ObservableObject {
   let reducer: (inout Value, Action) -> Void
   @Published var value: Value
@@ -353,7 +365,7 @@ struct SettingsForm_Previews : PreviewProvider {
       ContentView(
         store: Store(
           initialValue: AppState(),
-          reducer: activityFeed(appReducer)
+          reducer: logging(activityFeed(appReducer))
         )
       )
     }

@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let contentView = ContentView(
       store: Store(
         initialValue: AppState(),
-        reducer: activityFeed(appReducer)
+        reducer: logging(activityFeed(appReducer))
       )
     )
 
