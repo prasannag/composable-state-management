@@ -190,6 +190,7 @@
 		0B9401F823B744F8005DE8CD /* FavoritePrimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePrimes.swift; sourceTree = "<group>"; };
 		0B9401FA23B7463A005DE8CD /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		0B9401FC23B74762005DE8CD /* PrimeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeModal.swift; sourceTree = "<group>"; };
+		0B9401FE23B7ACF2005DE8CD /* PrimeTime.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PrimeTime.playground; path = ../../PrimeTime.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0BE59A27238CB0BB003DD356 /* ComposableArchitectureSinglePage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposableArchitectureSinglePage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE59A2A238CB0BB003DD356 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BE59A2C238CB0BB003DD356 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +413,7 @@
 		0BE59A29238CB0BB003DD356 /* ComposableArchitectureSinglePage */ = {
 			isa = PBXGroup;
 			children = (
+				0B9401FE23B7ACF2005DE8CD /* PrimeTime.playground */,
 				0BE59A2A238CB0BB003DD356 /* AppDelegate.swift */,
 				0BE59A2C238CB0BB003DD356 /* SceneDelegate.swift */,
 				0BE59A2E238CB0BB003DD356 /* ContentView.swift */,
