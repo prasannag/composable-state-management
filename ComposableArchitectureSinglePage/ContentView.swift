@@ -108,7 +108,7 @@ func activityFeed(
     // do some computations with state and action
     switch action {
     case .counterView(.counter),
-         .favoritePrimes(.loadedFavoritePrimes):
+         .favoritePrimes(.favoritePrimesLoaded):
       break
 
     case .counterView(.primeModal(.saveFavoritePrimeTapped)):
