@@ -23,6 +23,23 @@ struct WolframAlphaResult: Decodable {
   }
 }
 
+public func nthPrime(_ n: Int, callback: @escaping (Int?) -> Void) -> Void {
+  wolframAlpha(query: "prime \(n)") { result in
+    callback(
+      result
+        .flatMap {
+          $0.queryresult
+            .pods
+            .first(where: { $0.primary == .some(true) })?
+            .subpods
+            .first?
+            .plaintext
+      }
+      .flatMap(Int.init)
+    )
+  }
+}
+
 func wolframAlpha(query: String, callback: @escaping (WolframAlphaResult?) -> Void) -> Void {
   var components = URLComponents(string: "https://api.wolframalpha.com/v2/query")!
   components.queryItems = [
