@@ -68,15 +68,6 @@ public func ordinal(_ n: Int) -> String {
   return formatter.string(for: n) ?? ""
 }
 
-public func isPrime (_ p: Int) -> Bool {
-  if p <= 1 { return false }
-  if p <= 3 { return true }
-  for i in 2...Int(sqrtf(Float(p))) {
-    if p % i == 0 { return false }
-  }
-  return true
-}
-
 public func compose<A, B, C>(
   _ f: @escaping (B) -> C,
   _ g: @escaping (A) -> B
