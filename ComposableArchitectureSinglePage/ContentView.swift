@@ -147,12 +147,6 @@ func activityFeed(
   }
 }
 
-struct PrimeAlert: Identifiable {
-  let prime: Int
-
-  var id: Int { self.prime }
-}
-
 struct ContentView: View {
   @ObservedObject var store: Store<AppState, AppAction>
   
@@ -164,7 +158,14 @@ struct ContentView: View {
           destination: CounterView(
           store: self.store.view(
             value: { ($0.count, $0.favoritePrimes) },
-            action: { $0 }
+            action: {
+              switch $0 {
+              case let .counter(action):
+                return AppAction.counter(action)
+              case let .primeModal(action):
+                return AppAction.primeModal(action)
+              }
+            }
             )
           )
         )
@@ -179,59 +180,6 @@ struct ContentView: View {
         )
       }
       .navigationBarTitle("State management")
-    }
-  }
-}
-
-struct CounterView: View {
-  @ObservedObject var store: Store<CounterViewState, AppAction>
-  @State var isPrimeModalShown: Bool = false
-  @State var alertNthPrime: PrimeAlert?
-  @State var isNthPrimeButtonDisabled = false
-
-  var body: some View {
-    VStack {
-      HStack {
-        Button(action: { self.store.send(.counter(.decrTapped)) }) {
-          Text("-")
-        }
-        Text("\(self.store.value.count)")
-        Button(action: { self.store.send(.counter(.incrTapped)) }) {
-          Text("+")
-        }
-      }
-      Button(action: { self.isPrimeModalShown = true }) {
-        Text("Is this prime?")
-      }
-      Button(action: self.nthPrimeButtonAction) {
-        Text("What is the \(ordinal(self.store.value.count)) prime?")
-      }
-      .disabled(self.isNthPrimeButtonDisabled)
-    }
-    .font(.title)
-    .navigationBarTitle("Counter demo")
-    .sheet(isPresented: self.$isPrimeModalShown) {
-      IsPrimeModalView(
-        store: self.store
-        .view(
-          value: { ($0.count, $0.favoritePrimes) },
-          action: { .primeModal($0) }
-        )
-      )
-    }
-    .alert(item: self.$alertNthPrime) { alert in
-      Alert(
-        title: Text("The \(ordinal(self.store.value.count)) prime is \(alert.prime)"),
-        dismissButton: .default(Text("Ok"))
-      )
-    }
-  }
-
-  func nthPrimeButtonAction() {
-    self.isNthPrimeButtonDisabled = true
-    nthPrime(self.store.value.count) { prime in
-      self.alertNthPrime = prime.map(PrimeAlert.init(prime:))
-      self.isNthPrimeButtonDisabled = false
     }
   }
 }

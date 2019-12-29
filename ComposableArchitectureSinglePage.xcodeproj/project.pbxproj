@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B8C8EC023B854D300F79389 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */; };
 		0B94016C23B705A8005DE8CD /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 0B94016B23B705A8005DE8CD /* Overture */; };
 		0B94017B23B7419D005DE8CD /* Counter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B94017223B7419D005DE8CD /* Counter.framework */; };
 		0B94018223B7419D005DE8CD /* CounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B94018123B7419D005DE8CD /* CounterTests.swift */; };
@@ -44,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0B8C8EBC23B853AD00F79389 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BE59A1F238CB0BB003DD356 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B94019423B741B5005DE8CD;
+			remoteInfo = PrimeModal;
+		};
 		0B94017C23B7419D005DE8CD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0BE59A1F238CB0BB003DD356 /* Project object */;
@@ -162,6 +170,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
 		0B94017223B7419D005DE8CD /* Counter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Counter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B94017423B7419D005DE8CD /* Counter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Counter.h; sourceTree = "<group>"; };
 		0B94017523B7419D005DE8CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -304,6 +313,7 @@
 				0B94017423B7419D005DE8CD /* Counter.h */,
 				0B94017523B7419D005DE8CD /* Info.plist */,
 				0B9401FA23B7463A005DE8CD /* Counter.swift */,
+				0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */,
 			);
 			path = Counter;
 			sourceTree = "<group>";
@@ -502,6 +512,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B8C8EBD23B853AD00F79389 /* PBXTargetDependency */,
 			);
 			name = Counter;
 			productName = Counter;
@@ -874,6 +885,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B9401FB23B7463A005DE8CD /* Counter.swift in Sources */,
+				0B8C8EC023B854D300F79389 /* WolframAlpha.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,6 +975,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0B8C8EBD23B853AD00F79389 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B94019423B741B5005DE8CD /* PrimeModal */;
+			targetProxy = 0B8C8EBC23B853AD00F79389 /* PBXContainerItemProxy */;
+		};
 		0B94017D23B7419D005DE8CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0B94017123B7419D005DE8CD /* Counter */;
