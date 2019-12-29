@@ -8,17 +8,30 @@ import SwiftUI
 public enum FavoritePrimesAction {
   case deleteFavoritePrimes(IndexSet)
   case loadedFavoritePrimes([Int])
+  case saveButtonTapped
 }
 
-public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) {
+public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesAction) -> Effect {
   switch action {
   case let .deleteFavoritePrimes(indexSet):
     for index in indexSet {
       state.remove(at: index)
     }
+    return {}
     
   case let .loadedFavoritePrimes(favoritePrimes):
     state = favoritePrimes
+    return {}
+    
+  case .saveButtonTapped:
+    let state = state
+    return {
+      let data = try! JSONEncoder().encode(state)
+      let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+      let documentsURL = URL(fileURLWithPath: documentsPath)
+      let favoritePrimesURL = documentsURL.appendingPathComponent("favorite-primes.json")
+      try! data.write(to: favoritePrimesURL)
+    }
   }
 }
 
@@ -42,11 +55,7 @@ public struct FavoritePrimesView: View {
     .navigationBarItems(trailing:
       HStack {
         Button("Save") {
-          let data = try! JSONEncoder().encode(self.store.value)
-          let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-          let documentsURL = URL(fileURLWithPath: documentsPath)
-          let favoritePrimesURL = documentsURL.appendingPathComponent("favorite-primes.json")
-          try! data.write(to: favoritePrimesURL)
+          self.store.send(.saveButtonTapped)
         }
         
         Button("Load") {
