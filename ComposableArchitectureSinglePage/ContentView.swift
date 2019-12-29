@@ -159,16 +159,24 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       List {
-        NavigationLink(destination: CounterView(
-          store: self.store.view { ($0.count, $0.favoritePrimes) }
-        )) {
-          Text("Counter demo")
-        }
-        NavigationLink(destination: FavoritePrimesView(
-          store: self.store.view { $0.favoritePrimes }
-        )) {
-          Text("Favorite primes")
-        }
+        NavigationLink(
+          "Counter demo",
+          destination: CounterView(
+          store: self.store.view(
+            value: { ($0.count, $0.favoritePrimes) },
+            action: { $0 }
+            )
+          )
+        )
+        NavigationLink(
+          "Favorite primes",
+          destination: FavoritePrimesView(
+            store: self.store.view(
+              value: { $0.favoritePrimes },
+              action: { .favoritePrimes($0) }
+            )
+          )
+        )
       }
       .navigationBarTitle("State management")
     }
@@ -203,7 +211,13 @@ struct CounterView: View {
     .font(.title)
     .navigationBarTitle("Counter demo")
     .sheet(isPresented: self.$isPrimeModalShown) {
-      IsPrimeModalView(store: self.store)
+      IsPrimeModalView(
+        store: self.store
+        .view(
+          value: { ($0.count, $0.favoritePrimes) },
+          action: { $0 }
+        )
+      )
     }
     .alert(item: self.$alertNthPrime) { alert in
       Alert(
