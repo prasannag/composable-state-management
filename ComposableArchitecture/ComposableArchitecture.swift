@@ -5,7 +5,17 @@
 import SwiftUI
 import Combine
 
-public typealias Effect<Action> = (@escaping (Action) -> Void) -> Void
+public struct Effect<A> {
+  public let run: (@escaping (A) -> Void) -> Void
+  
+  public init(run: @escaping (@escaping (A) -> Void) -> Void) {
+    self.run = run
+  }
+  
+  public func map<B>(_ f: @escaping (A) -> B) -> Effect<B> {
+    return Effect<B> { callback in self.run { a in callback(f(a)) } }
+  }
+}
 
 public typealias Reducer<Value, Action> = (inout Value, Action) -> [Effect<Action>]
 
@@ -22,7 +32,7 @@ public final class Store<Value, Action>: ObservableObject {
   public func send(_ action: Action) {
     let effects = self.reducer(&self.value, action)
     effects.forEach { effect in
-      effect(self.send)
+      effect.run(self.send)
     }
   }
   
@@ -64,8 +74,8 @@ public func pullback<LocalValue, GlobalValue, LocalAction, GlobalAction>(
     guard let localAction = globalAction[keyPath: action] else { return [] }
     let localEffects = reducer(&globalValue[keyPath: value], localAction)
     return localEffects.map { localEffect in
-      { callback in
-        localEffect { localAction in
+      return Effect { callback in
+        localEffect.run { localAction in
           var globalAction = globalAction
           globalAction[keyPath: action] = localAction
           callback(globalAction)
@@ -81,7 +91,7 @@ public func logging<Value, Action> (
   return { value, action in
     let effects = reducer(&value, action)
     let newValue = value
-    return [{ _ in
+    return [ Effect { _ in
       print("Action: \(action)")
       print("Value: ")
       dump(newValue)
