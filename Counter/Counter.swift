@@ -42,6 +42,7 @@ public enum CounterAction {
   case incrTapped
   case nthPrimeButtonTapped
   case nthPrimeResponse(Int?)
+  case alertDismissButtonTapped
 }
 
 public enum CounterViewAction {
@@ -92,13 +93,19 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
     let count = state.count
     return [{ callback in
       nthPrime(count) { prime in
-        callback(.nthPrimeResponse(prime))
+        DispatchQueue.main.async {
+          callback(.nthPrimeResponse(prime))          
+        }
       }
     }]
     
   case let .nthPrimeResponse(prime):
     state.alertNthPrime = prime.map(PrimeAlert.init(prime:))
     state.isNthPrimeButtonDisabled = false
+    return []
+    
+  case .alertDismissButtonTapped:
+    state.alertNthPrime = nil
     return []
   }
 }
@@ -155,7 +162,9 @@ public struct CounterView: View {
     ) { alert in
       Alert(
         title: Text("The \(ordinal(self.store.value.count)) prime is \(alert.prime)"),
-        dismissButton: .default(Text("Ok"))
+        dismissButton: .default(Text("Ok")) {
+          self.store.send(.counter(.alertDismissButtonTapped))
+        }
       )
     }
   }
