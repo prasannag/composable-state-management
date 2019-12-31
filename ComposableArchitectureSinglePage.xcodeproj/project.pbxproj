@@ -172,6 +172,7 @@
 
 /* Begin PBXFileReference section */
 		0B3029D523BA2A6400A30E74 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
+		0B3029D723BAFE4900A30E74 /* PrimeTime.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PrimeTime.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B61346B23B9967400130320 /* FavoritePrimes.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = FavoritePrimes.playground; path = ComposableArchitectureSinglePage/Playgrounds/FavoritePrimes.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B61346D23B9ABAD00130320 /* Counter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Counter.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
@@ -313,6 +314,7 @@
 		0B61346C23B99A3900130320 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				0B3029D723BAFE4900A30E74 /* PrimeTime.playground */,
 				0B61346D23B9ABAD00130320 /* Counter.playground */,
 				0B61346B23B9967400130320 /* FavoritePrimes.playground */,
 			);
