@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 private let wolframAlphaApiKey = "6H69Q3-828TKQJ4EP"
 
@@ -23,9 +24,8 @@ struct WolframAlphaResult: Decodable {
   }
 }
 
-public func nthPrime(_ n: Int, callback: @escaping (Int?) -> Void) -> Void {
-  wolframAlpha(query: "prime \(n)") { result in
-    callback(
+public func nthPrime(_ n: Int) -> Effect<Int?> {
+  return wolframAlpha(query: "prime \(n)").map { result in
       result
         .flatMap {
           $0.queryresult
@@ -36,11 +36,10 @@ public func nthPrime(_ n: Int, callback: @escaping (Int?) -> Void) -> Void {
             .plaintext
       }
       .flatMap(Int.init)
-    )
   }
 }
 
-func wolframAlpha(query: String, callback: @escaping (WolframAlphaResult?) -> Void) -> Void {
+func wolframAlpha(query: String) -> Effect<WolframAlphaResult?> {
   var components = URLComponents(string: "https://api.wolframalpha.com/v2/query")!
   components.queryItems = [
     URLQueryItem(name: "input", value: query),
@@ -48,12 +47,8 @@ func wolframAlpha(query: String, callback: @escaping (WolframAlphaResult?) -> Vo
     URLQueryItem(name: "output", value: "JSON"),
     URLQueryItem(name: "appid", value: wolframAlphaApiKey),
   ]
-
-  URLSession.shared.dataTask(with: components.url(relativeTo: nil)!) { data, response, error in
-    callback(
-      data
-        .flatMap { try? JSONDecoder().decode(WolframAlphaResult.self, from: $0) }
-    )
-  }
-  .resume()
+  
+  
+  return dataTask(with: components.url(relativeTo: nil)!)
+    .decode(as: WolframAlphaResult.self)
 }
