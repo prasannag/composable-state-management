@@ -93,7 +93,8 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
     return [
       nthPrime(state.count)
         .map { CounterAction.nthPrimeResponse($0) }
-        .receive(on: .main)
+        .receive(on: DispatchQueue.main)
+        .eraseToEffect()
     ]
     
   case let .nthPrimeResponse(prime):
