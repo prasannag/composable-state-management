@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B3029D623BA2A6400A30E74 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3029D523BA2A6400A30E74 /* Effects.swift */; };
 		0B8C8EC023B854D300F79389 /* WolframAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */; };
 		0B94016C23B705A8005DE8CD /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 0B94016B23B705A8005DE8CD /* Overture */; };
 		0B94017B23B7419D005DE8CD /* Counter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B94017223B7419D005DE8CD /* Counter.framework */; };
@@ -170,6 +171,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B3029D523BA2A6400A30E74 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		0B61346B23B9967400130320 /* FavoritePrimes.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = FavoritePrimes.playground; path = ComposableArchitectureSinglePage/Playgrounds/FavoritePrimes.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B61346D23B9ABAD00130320 /* Counter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Counter.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0B8C8EBE23B8546E00F79389 /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 				0B9401DB23B74207005DE8CD /* ComposableArchitecture.h */,
 				0B9401DC23B74207005DE8CD /* Info.plist */,
 				0B9401F623B74235005DE8CD /* ComposableArchitecture.swift */,
+				0B3029D523BA2A6400A30E74 /* Effects.swift */,
 			);
 			path = ComposableArchitecture;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3029D623BA2A6400A30E74 /* Effects.swift in Sources */,
 				0B9401F723B74235005DE8CD /* ComposableArchitecture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

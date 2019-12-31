@@ -10,8 +10,10 @@ import FavoritePrimes
 import SwiftUI
 
 struct AppState {
+  var alertNthPrime: PrimeAlert? = nil
   var count = 0
   var favoritePrimes: [Int] = []
+  var isNthPrimeButtonDisabled: Bool = false
   var loggedInUser: User? = nil
   var activityFeed: [Activity] = []
 
@@ -85,30 +87,36 @@ extension AppState {
   var counterView: CounterViewState {
     get {
       CounterViewState(
+        alertNthPrime: self.alertNthPrime,
         count: self.count,
-        favoritePrimes: self.favoritePrimes
+        favoritePrimes: self.favoritePrimes,
+        isNthPrimeButtonDisabled: self.isNthPrimeButtonDisabled
       )
     }
     set {
+      self.alertNthPrime = newValue.alertNthPrime
       self.count = newValue.count
       self.favoritePrimes = newValue.favoritePrimes
+      self.isNthPrimeButtonDisabled = newValue.isNthPrimeButtonDisabled
     }
   }
 }
 
-let appReducer: (inout AppState, AppAction) -> Void = combine(
+let appReducer: Reducer<AppState, AppAction> = combine(
   pullback(counterViewReducer, value: \.counterView, action: \.counterView),
   pullback(favoritePrimesReducer, value: \.favoritePrimes, action: \.favoritePrimes)
 )
 
 func activityFeed(
-  _ reducer: @escaping (inout AppState, AppAction) -> Void
-) -> (inout AppState, AppAction) -> Void {
+  _ reducer: @escaping Reducer<AppState, AppAction>
+) -> Reducer<AppState, AppAction> {
   return { state, action in
     // do some computations with state and action
     switch action {
     case .counterView(.counter),
-         .favoritePrimes(.favoritePrimesLoaded):
+         .favoritePrimes(.favoritePrimesLoaded),
+         .favoritePrimes(.loadButtonTapped),
+         .favoritePrimes(.saveButtonTapped):
       break
 
     case .counterView(.primeModal(.saveFavoritePrimeTapped)):
@@ -125,7 +133,7 @@ func activityFeed(
             type: .removedFavoritePrime(state.favoritePrimes[index])))
       }
     }
-    reducer(&state, action)
+    return reducer(&state, action)
     // inspect what happened to state
   }
 }
