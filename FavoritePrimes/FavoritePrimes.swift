@@ -2,6 +2,7 @@
 //  Copyright © 2019 Prasanna Gopalakrishnan. All rights reserved.
 //
 
+import Combine
 import ComposableArchitecture
 import SwiftUI
 
@@ -28,12 +29,16 @@ public func favoritePrimesReducer(state: inout [Int], action: FavoritePrimesActi
     return [saveEffect(favoritePrimes: state)]
     
   case .loadButtonTapped:
-    return [loadEffect]
+    return [
+      loadEffect
+        .compactMap { $0 }
+        .eraseToEffect()
+    ]
   }
 }
 
 private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
-  return Effect { _ in
+  .fireAndForget {
     let data = try! JSONEncoder().encode(favoritePrimes)
     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     let documentsURL = URL(fileURLWithPath: documentsPath)
@@ -42,15 +47,15 @@ private func saveEffect(favoritePrimes: [Int]) -> Effect<FavoritePrimesAction> {
   }
 }
 
-private let loadEffect: Effect<FavoritePrimesAction> = Effect { callback in
+private let loadEffect: Effect<FavoritePrimesAction?> = .sync {
   let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
   let documentsURL = URL(fileURLWithPath: documentsPath)
   let favoritePrimesURL = documentsURL.appendingPathComponent("favorite-primes.json")
   guard
     let data = try? Data(contentsOf: favoritePrimesURL),
     let favoritePrimes = try? JSONDecoder().decode([Int].self, from: data)
-    else { return }
-  callback(.favoritePrimesLoaded(favoritePrimes))
+    else { return nil }
+  return .favoritePrimesLoaded(favoritePrimes)
 }
 
 public struct FavoritePrimesView: View {

@@ -126,7 +126,7 @@ extension Effect {
 }
 
 extension Effect {
-  static func sync(work: @escaping () -> Output) -> Effect {
+  public static func sync(work: @escaping () -> Output) -> Effect {
     return Deferred {
       Just(work())
     }.eraseToEffect()
