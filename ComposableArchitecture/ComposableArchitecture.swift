@@ -2,7 +2,6 @@
 //  Copyright © 2019 Prasanna Gopalakrishnan. All rights reserved.
 //
 
-import SwiftUI
 import Combine
 
 public struct Effect<Output>: Publisher {
