@@ -746,7 +746,6 @@
 					};
 					0B94019C23B741B5005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 0BE59A26238CB0BB003DD356;
 					};
 					0B9401B623B741C9005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -1246,7 +1245,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Debug;
 		};
@@ -1266,7 +1264,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Release;
 		};

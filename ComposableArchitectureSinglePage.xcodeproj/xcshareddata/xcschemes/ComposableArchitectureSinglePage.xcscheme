@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1120"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0BE59A26238CB0BB003DD356"
+               BuildableName = "ComposableArchitectureSinglePage.app"
+               BlueprintName = "ComposableArchitectureSinglePage"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0BE59A3C238CB0BD003DD356"
+               BuildableName = "ComposableArchitectureSinglePageTests.xctest"
+               BlueprintName = "ComposableArchitectureSinglePageTests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0BE59A47238CB0BD003DD356"
+               BuildableName = "ComposableArchitectureSinglePageUITests.xctest"
+               BlueprintName = "ComposableArchitectureSinglePageUITests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0B94017923B7419D005DE8CD"
+               BuildableName = "CounterTests.xctest"
+               BlueprintName = "CounterTests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0B94019C23B741B5005DE8CD"
+               BuildableName = "PrimeModalTests.xctest"
+               BlueprintName = "PrimeModalTests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0B9401BE23B741CA005DE8CD"
+               BuildableName = "FavoritePrimesTests.xctest"
+               BlueprintName = "FavoritePrimesTests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0B9401E023B74207005DE8CD"
+               BuildableName = "ComposableArchitectureTests.xctest"
+               BlueprintName = "ComposableArchitectureTests"
+               ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0BE59A26238CB0BB003DD356"
+            BuildableName = "ComposableArchitectureSinglePage.app"
+            BlueprintName = "ComposableArchitectureSinglePage"
+            ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0BE59A26238CB0BB003DD356"
+            BuildableName = "ComposableArchitectureSinglePage.app"
+            BlueprintName = "ComposableArchitectureSinglePage"
+            ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
