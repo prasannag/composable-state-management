@@ -1,8 +1,4 @@
 //
-//  PrimeModalTests.swift
-//  PrimeModalTests
-//
-//  Created by Prasanna Gopalakrishnan on 28/12/19.
 //  Copyright © 2019 Prasanna Gopalakrishnan. All rights reserved.
 //
 
@@ -11,24 +7,23 @@ import XCTest
 
 class PrimeModalTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testSaveFavoritePrimesTapped() {
+      var state = (count: 2 , favoritePrimes: [3, 5])
+      let effects = primeModalReducer(state: &state, action: .saveFavoritePrimeTapped)
+      
+      let (count, favoritePrimes) = state
+      XCTAssertEqual(count, 2)
+      XCTAssertEqual(favoritePrimes, [3, 5, 2])
+      XCTAssert(effects.isEmpty)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+  func testRemoveFavoritePrimesTapped() {
+    var state = (count: 3 , favoritePrimes: [3, 5])
+    let effects = primeModalReducer(state: &state, action: .removeFavoritePrimeTapped)
+    
+    let (count, favoritePrimes) = state
+    XCTAssertEqual(count, 3)
+    XCTAssertEqual(favoritePrimes, [5])
+    XCTAssert(effects.isEmpty)
+  }
 }
