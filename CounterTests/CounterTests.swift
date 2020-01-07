@@ -49,7 +49,7 @@ class CounterTests: XCTestCase {
     XCTAssert(effects.isEmpty)
   }
   
-  func testNthPrimeButtonFlow() {
+  func testNthPrimeButtonHappyFlow() {
     var state = CounterViewState(
       alertNthPrime: nil,
       count: 2,
@@ -83,6 +83,34 @@ class CounterTests: XCTestCase {
       isNthPrimeButtonDisabled: false
     ))
     XCTAssert(effects.isEmpty)
+  }
+  
+  func testNthPrimeButtonUnhappyFlow() {
+    var state = CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5],
+      isNthPrimeButtonDisabled: false
+    )
+    
+    var effects = counterViewReducer(&state, .counter(.nthPrimeButtonTapped))
+    XCTAssertEqual(state, CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5],
+      isNthPrimeButtonDisabled: true
+    ))
+    XCTAssertEqual(effects.count, 1)
+    
+    effects = counterViewReducer(&state, .counter(.nthPrimeResponse(nil)))
+    XCTAssertEqual(state, CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5],
+      isNthPrimeButtonDisabled: false
+    ))
+    XCTAssert(effects.isEmpty)
+    
   }
 
 }
