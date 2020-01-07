@@ -112,5 +112,34 @@ class CounterTests: XCTestCase {
     XCTAssert(effects.isEmpty)
     
   }
+  
+  func testPrimeModal() {
+    var state = CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5],
+      isNthPrimeButtonDisabled: false
+    )
+    
+    var effects = counterViewReducer(&state, .primeModal(.saveFavoritePrimeTapped))
+    
+    XCTAssertEqual(state, CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5, 2],
+      isNthPrimeButtonDisabled: false
+    ))
+    XCTAssert(effects.isEmpty)
+    
+    effects = counterViewReducer(&state, .primeModal(.removeFavoritePrimeTapped))
+    
+    XCTAssertEqual(state, CounterViewState(
+      alertNthPrime: nil,
+      count: 2,
+      favoritePrimes: [3, 5],
+      isNthPrimeButtonDisabled: false
+    ))
+    XCTAssert(effects.isEmpty)
+  }
 
 }
