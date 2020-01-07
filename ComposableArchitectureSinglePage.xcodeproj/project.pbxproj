@@ -738,7 +738,6 @@
 					};
 					0B94017923B7419D005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 0BE59A26238CB0BB003DD356;
 					};
 					0B94019423B741B5005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -753,7 +752,6 @@
 					};
 					0B9401BE23B741CA005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 0BE59A26238CB0BB003DD356;
 					};
 					0B9401D823B74207005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -761,7 +759,6 @@
 					};
 					0B9401E023B74207005DE8CD = {
 						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = 0BE59A26238CB0BB003DD356;
 					};
 					0BE59A26238CB0BB003DD356 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -1148,7 +1145,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Debug;
 		};
@@ -1168,7 +1164,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Release;
 		};
@@ -1340,7 +1335,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Debug;
 		};
@@ -1360,7 +1354,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Release;
 		};
@@ -1437,7 +1430,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Debug;
 		};
@@ -1457,7 +1449,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComposableArchitectureSinglePage.app/ComposableArchitectureSinglePage";
 			};
 			name = Release;
 		};
@@ -1621,7 +1612,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5K4UA78J5;
 				INFOPLIST_FILE = ComposableArchitectureSinglePageTests/Info.plist;
@@ -1643,7 +1633,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5K4UA78J5;
 				INFOPLIST_FILE = ComposableArchitectureSinglePageTests/Info.plist;

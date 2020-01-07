@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B94017123B7419D005DE8CD"
-               BuildableName = "Counter.framework"
-               BlueprintName = "Counter"
+               BlueprintIdentifier = "0B9401D823B74207005DE8CD"
+               BuildableName = "ComposableArchitecture.framework"
+               BlueprintName = "ComposableArchitecture"
                ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B94017923B7419D005DE8CD"
-               BuildableName = "CounterTests.xctest"
-               BlueprintName = "CounterTests"
+               BlueprintIdentifier = "0B9401E023B74207005DE8CD"
+               BuildableName = "ComposableArchitectureTests.xctest"
+               BlueprintName = "ComposableArchitectureTests"
                ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0B94017123B7419D005DE8CD"
-            BuildableName = "Counter.framework"
-            BlueprintName = "Counter"
+            BlueprintIdentifier = "0B9401D823B74207005DE8CD"
+            BuildableName = "ComposableArchitecture.framework"
+            BlueprintName = "ComposableArchitecture"
             ReferencedContainer = "container:ComposableArchitectureSinglePage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
