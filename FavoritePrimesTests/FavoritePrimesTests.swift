@@ -11,6 +11,10 @@ import XCTest
 
 class FavoritePrimesTests: XCTestCase {
 
+  override class func setUp() {
+    super.setUp()
+    Current = .mock
+  }
   func testDeleteFavoritePrimes() {
     var state = [2, 3, 5, 7]
     let effects = favoritePrimesReducer(state: &state, action: .deleteFavoritePrimes([2]))
@@ -20,21 +24,44 @@ class FavoritePrimesTests: XCTestCase {
   }
 
   func testSaveButtonTapped() {
+    var didSave = false
+    Current.fileClient.save = { _, _ in
+      .fireAndForget {
+        didSave = true
+      }
+    }
     var state = [2, 3, 5, 7]
     let effects = favoritePrimesReducer(state: &state, action: .saveButtonTapped)
     
     XCTAssertEqual(state, [2, 3, 5, 7])
     XCTAssertEqual(effects.count, 1)
+    
+    let _ = effects[0].sink { _ in XCTFail() }
+    XCTAssert(didSave)
   }
   
   func testLoadPrimesFlow() {
+    Current.fileClient.load = { _ in
+      .sync { try! JSONEncoder().encode([2, 31]) }
+    }
+    
     var state = [2, 3, 5, 7]
     var effects = favoritePrimesReducer(state: &state, action: .loadButtonTapped)
     
     XCTAssertEqual(state, [2, 3, 5, 7])
     XCTAssertEqual(effects.count, 1)
     
-    effects = favoritePrimesReducer(state: &state, action: .favoritePrimesLoaded([2, 31]))
+    var nextAction: FavoritePrimesAction!
+    var receivedCompletion = self.expectation(description: "receivedCompletion")
+    effects[0].sink(
+      receiveCompletion: { (_) in
+        receivedCompletion.fulfill()
+    }, receiveValue: { action in
+      XCTAssertEqual(action, FavoritePrimesAction.favoritePrimesLoaded([2, 31]))
+      nextAction = action
+    })
+    self.wait(for: [receivedCompletion], timeout: 0)
+    effects = favoritePrimesReducer(state: &state, action: nextAction)
     
     XCTAssertEqual(state, [2, 31])
     XCTAssert(effects.isEmpty)

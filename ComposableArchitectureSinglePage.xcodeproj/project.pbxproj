@@ -150,6 +150,13 @@
 			remoteGlobalIDString = 0BE59A26238CB0BB003DD356;
 			remoteInfo = ComposableArchitectureSinglePage;
 		};
+		0BEF02A923C73A8F001F8F3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BE59A1F238CB0BB003DD356 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0B9401D823B74207005DE8CD;
+			remoteInfo = ComposableArchitecture;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -599,6 +606,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0BEF02AA23C73A8F001F8F3B /* PBXTargetDependency */,
 			);
 			name = FavoritePrimes;
 			productName = FavoritePrimes;
@@ -1057,6 +1065,11 @@
 			isa = PBXTargetDependency;
 			target = 0BE59A26238CB0BB003DD356 /* ComposableArchitectureSinglePage */;
 			targetProxy = 0BE59A49238CB0BD003DD356 /* PBXContainerItemProxy */;
+		};
+		0BEF02AA23C73A8F001F8F3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0B9401D823B74207005DE8CD /* ComposableArchitecture */;
+			targetProxy = 0BEF02A923C73A8F001F8F3B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
