@@ -37,7 +37,7 @@ public struct CounterViewState: Equatable {
   }
 }
 
-public enum CounterAction {
+public enum CounterAction: Equatable {
   case decrTapped
   case incrTapped
   case nthPrimeButtonTapped
@@ -45,7 +45,7 @@ public enum CounterAction {
   case alertDismissButtonTapped
 }
 
-public enum CounterViewAction {
+public enum CounterViewAction: Equatable {
   case counter(CounterAction)
   case primeModal(PrimeModalAction)
   
@@ -91,7 +91,7 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
   case .nthPrimeButtonTapped:
     state.isNthPrimeButtonDisabled = true
     return [
-      nthPrime(state.count)
+      Current.nthPrime(state.count)
         .map { CounterAction.nthPrimeResponse($0) }
         .receive(on: DispatchQueue.main)
         .eraseToEffect()
@@ -106,6 +106,20 @@ public func counterReducer(state: inout CounterState, action: CounterAction) -> 
     state.alertNthPrime = nil
     return []
   }
+}
+
+struct CounterEnvironment {
+  var nthPrime: (Int) -> Effect<Int?>
+}
+
+extension CounterEnvironment {
+  static let live = CounterEnvironment(nthPrime: Counter.nthPrime)
+}
+
+var Current = CounterEnvironment.live
+
+extension CounterEnvironment {
+  static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 }})
 }
 
 public let counterViewReducer = combine(
